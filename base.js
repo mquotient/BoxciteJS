@@ -17,9 +17,94 @@
 	// Now, let's initializing our main constructor & enrich
 	// it with the basic properties & methods.
 	
-	function Boxcite () {
+	function Boxcite ( server, port, path ) {
 		this.data = {};
-		this.URL = 'http://boxcite.com:8000/xmlrpc/';
+
+		// Let's render the URL of the server, else provide default
+		if ( typeof server !== "undefined" && server.length > 0 ) {
+			this.URL = 'http://' + server;
+			if( typeof port !== "undefined" && port.length > 0 ) {
+				this.URL += ":" + port;
+			}
+			if( typeof path !== "undefined" && path.length > 0 ) {
+				this.URL += path;
+			}
+		}
+		else this.URL='http://192.168.1.108:8080/xmlrpc/';
+
+		// Implement a way to read & parse required data from the
+		// cookies which have been set.
+		this.getCookie = function ( cookie ) {
+			var i, x, y;
+			var cookies = document.cookie.split( ";" );
+
+			var count = cookies.length;
+			// So that the count is evaluated only once for no matter
+			// how many times the loop runs, saves recurring computation.
+
+			for ( i = 0; i < count ; i++ ) {
+				x = cookies[i].substr( 0, cookies[i].indexOf( "=" ) );
+				y = cookies[i].substr( cookies[i].indexOf( "=" )+1 );
+				x = x.replace( /^\s+|\s+$/g, "" );
+				if ( x == cookie ) {
+					result = unescape(y);
+					return result;
+				}
+			}
+			return result;
+		}
+
+		// Here we implement how to parse given values & set the cookies
+		this.setCookie = function ( cookie, value, expires, domain, path ) {
+			var expDate = new Date();
+			expDate.setDate( expDate.getDate() + expires );
+
+			var content = escape( value ) + ( ( expires == null) ?
+				"" : ";expires=" + expDate.toUTCString() );
+			content += ( domain == null ) ? "" : "; Domain=" + escape( domain );
+			content += ( path == null ) ? "" : "; Path=" + escape( path );
+
+			document.cookie = cookie + "=" + content;
+		}
+
+		// Here's the user authentication request method
+		this.sendLoginRequest = function ( method, data ) {
+			try {
+				var client = new xmlrpc_client( this.URL );
+				method = this.prefix + method;
+				cookie = this.getCookie( 'sessionid' );
+				payLoad = ( typeof data === "undefined" ) ?
+					( this.data ) : ( data );
+				if ( cookie != null ) {
+					payLoad.sessionID = cookie;
+				}
+
+				// Let's pass the payLoad to XML-RPC
+				var response = client.mq_send(
+					new xmlrpcmsg( method,
+						new Array( xmlrpc_encode( payLoad )
+						)
+					)
+				);
+
+				cookie = this.getCookie( 'sessionid' ) ;
+				if ( c == null ) {
+					var cookie = response.cookies();
+					this.setCookie( 'sessionid',
+						cookie['sessionid'].value,
+						cookie['sessionid'].expires
+					);
+				}
+
+				response = xmlrpc_decode( response.value() );
+				return response;
+			}
+
+			catch ( error ) {
+				error = "Failed to initiate sending data - " + error;
+				throw error;
+			}
+		}
 	}
 	
 	window.Boxcite = Boxcite;
