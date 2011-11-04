@@ -14,11 +14,13 @@
 	// will be executed to avoid any namespace pollution &
 	// it'll also be more efficient for garbage-collection.
 	
-	var Boxcite = (!(window.Boxcite) ? "Boxcite" : window.Boxcite);
+	// Now, let's initializing our main constructor & enrich
+	// it with the basic properties & methods.
 	
-	// Initializing our main object locally & making a logical
-	// assignment so that if Boxcite is defined, it holds the
-	// value - otherwise we're setting it to a string "Boxcite".
+	function Boxcite () {
+		this.data = {};
+		this.URL = 'http://boxcite.com:8000/xmlrpc/';
+	}
 	
 	window.Boxcite = Boxcite;
 	
