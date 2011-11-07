@@ -2,10 +2,10 @@
  * The base.js provides all the primordial objects for the
  * addon modules. Those modules (e.g. Contact, Campaign etc.)
  * can extend the functionalities of this constructor.
- * 
+ *
  * @copyright mQuotient Solutions Limited
  * @developer Soumya Deb [DebWebDev]
- * 
+ *
  */
 
 (function( window ) {
@@ -19,6 +19,7 @@
 	
 	function Boxcite ( server, port, path ) {
 		this.data = {};
+		this.prefix = "";
 
 		// Let's render the URL of the server, else provide default
 		if ( typeof server !== "undefined" && server.length > 0 ) {
@@ -35,20 +36,22 @@
 		// Implement a way to read & parse required data from the
 		// cookies which have been set.
 		this.getCookie = function ( cookie ) {
-			var i, x, y;
+			var i, x, y, result = "";
 			var cookies = document.cookie.split( ";" );
 
 			var count = cookies.length;
 			// So that the count is evaluated only once for no matter
 			// how many times the loop runs, saves recurring computation.
 
-			for ( i = 0; i < count ; i++ ) {
-				x = cookies[i].substr( 0, cookies[i].indexOf( "=" ) );
-				y = cookies[i].substr( cookies[i].indexOf( "=" )+1 );
-				x = x.replace( /^\s+|\s+$/g, "" );
-				if ( x == cookie ) {
-					result = unescape(y);
-					return result;
+			if ( count <= 0 && cookies[0] != "" ) {
+				for ( i = 0; i < count ; i++ ) {
+					x = cookies[i].substr( 0, cookies[i].indexOf( "=" ) );
+					y = cookies[i].substr( cookies[i].indexOf( "=" )+1 );
+					x = x.replace( /^\s+|\s+$/g, "" );
+					if ( x == cookie ) {
+						result = unescape(y);
+						return result;
+					}
 				}
 			}
 			return result;
@@ -88,13 +91,14 @@
 				);
 
 				cookie = this.getCookie( 'sessionid' ) ;
-				if ( c == null ) {
+				if ( cookie == "" ) {
 					var cookie = response.cookies();
 					this.setCookie( 'sessionid',
 						cookie['sessionid'].value,
 						cookie['sessionid'].expires
 					);
 				}
+				else alert("Cookie set automatically");
 
 				response = xmlrpc_decode( response.value() );
 				return response;
