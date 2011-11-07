@@ -71,7 +71,7 @@
 		}
 
 		// Here's the user authentication request method
-		this.sendLoginRequest = function ( method, data ) {
+		this.loginRequest = function ( method, data ) {
 			try {
 				var client = new xmlrpc_client( this.URL );
 				method = this.prefix + method;

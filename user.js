@@ -14,7 +14,7 @@ users.prefix = 'mq.boxcite.user.';
 users.login = function ( data ) {
 	try {
 		var method = 'login';
-		response = this.sendLoginRequest( method, data );
+		response = this.loginRequest( method, data );
 		return response;
 	}
 	catch ( error ) {
