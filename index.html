@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Test Login</title>
+		<script src="xmlrpc.js"></script>
+		<script src="boxcite.js"></script>
+	</head>
+	<body>
+		<form id="login_form" method="post" onsubmit="login();">
+			<label>Username: <input type="text" id="username" value="sreejith" /></label>
+			<br />
+			<label>Password: <input type="password" id="password" value="mquotient" /></label>
+			<br />
+			<label>Submit the credentials here: <input type="submit" value="Login" /></label>
+			<br />
+			<label>Successfully logged-in? Now: <input type="submit" value="Logout" onclick="logout();" /></label>
+		</form>
+		<script>
+			function login () {
+				var data = {
+					username : document.getElementById("username").value,
+					password : document.getElementById("password").value
+				}
+				var response = users.login( data );
+				if (response.success == true) {
+					alert("Logged In!");
+				}
+				else {
+					alert(response.fail_message);
+				}
+ 			}
+ 			function logout () {
+				var response = users.logout();
+				if (response.success == true) {
+					alert("Logged Out!");
+				}
+				else {
+					alert(response.fail_message);
+				}
+ 			}
+		</script>
+	</body>
+</html>
