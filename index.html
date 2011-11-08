@@ -6,12 +6,6 @@
 		<script src="xmlrpc.js"></script>
 		<script src="boxcite.js"></script>
 		<style>
-			pre {
-				margin: 16px; padding: 10px 20px;
-				width: 480px; display: block;
-				color: #333; background-color: #eee;
-				border: solid 1px #ccc; border-radius: 4px;
-			}
 			form {
 				margin: 16px; padding: 10px 20px;
 				width: 480px;
@@ -21,18 +15,6 @@
 		</style>
 	</head>
 	<body>
-<pre>
-<i>Instructions for usinging the backend server, requires SSH:</i>
-
-0.	Open terminal, that is able to connect to remote with SSH
-1.	# <b>sreejith@sreejith.dyndns-home.com -p 10522</b>
-2.	provide password "<b>mquotient</b>" when asked by the terminal
-3.	# <b>cd workspace/futures/conf</b>
-4.	# <b>python manage.py runserver 0.0.0.0:8080</b>
-5.	leave the terminal open and make requests from frontend
-6.	once done, press CTRL+C in the terminal to stop server
-7.	Do this ONLY when the server is not ALREADY RUNNING.
-</pre>
 		<form id="login_form" method="post">
 			<label>Username: <input type="text" id="username" value="sreejith" /></label>
 			<label>Password: <input type="password" id="password" value="mquotient" /></label>
