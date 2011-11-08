@@ -8,7 +8,7 @@
  *
  */
 
-(function( window ) {
+( function ( window ) {
 	
 	// This entire code will be contained in this closure &
 	// will be executed to avoid any namespace pollution &
@@ -31,19 +31,18 @@
 				this.URL += path;
 			}
 		}
-		else this.URL="http://sreejith.dyndns-home.com:18080/xmlrpc/";
+		else this.URL="http://localhost/xmlrpc/";
 
 		// Implement a way to read & parse required data from the
 		// cookies which have been set.
 		this.getCookie = function ( cookie ) {
 			var i, x, y, result = "";
 			var cookies = document.cookie.split( ";" );
-
 			var count = cookies.length;
 			// So that the count is evaluated only once for no matter
 			// how many times the loop runs, saves recurring computation.
 
-			if ( count <= 0 && cookies[0] != "" ) {
+			if ( count > 0 && cookies[0] != "" ) {
 				for ( i = 0; i < count ; i++ ) {
 					x = cookies[i].substr( 0, cookies[i].indexOf( "=" ) );
 					y = cookies[i].substr( cookies[i].indexOf( "=" )+1 );
@@ -79,13 +78,9 @@
 		this.loginRequest = function ( method, data ) {
 			try {
 				var client = new xmlrpc_client( this.URL );
-				method = this.prefix + method;
-				cookie = this.getCookie( 'sessionid' );
-				payLoad = ( typeof data === "undefined" ) ?
+				var payLoad = ( typeof data === "undefined" ) ?
 					( this.data ) : ( data );
-				if ( cookie != null ) {
-					payLoad.sessionID = cookie;
-				}
+				method = this.prefix + method;
 
 				// Let's pass the payLoad to XML-RPC
 				var response = client.mq_send(
@@ -94,7 +89,6 @@
 						)
 					)
 				);
-
 				cookie = this.getCookie( 'sessionid' ) ;
 				if ( cookie == "" ) {
 					var cookie = response.cookies();
@@ -103,7 +97,6 @@
 						cookie['sessionid'].expires
 					);
 				}
-				else alert("Cookie set automatically");
 
 				response = xmlrpc_decode( response.value() );
 				return response;
@@ -119,14 +112,20 @@
 		this.logoutRequest = function ( method ) {
 			try {
 				var client = new xmlrpc_client( this.URL );
+				var cookie = this.getCookie( 'sessionid' );
+				var payLoad = {};
+				if ( cookie != "" ) {
+					payLoad.sessionID = cookie;
+				}
 				method = this.prefix + method;
-				this.delCookie( 'sessionid' );
 				var response = client.mq_send(
 					new xmlrpcmsg( method,
-						new Array( xmlrpc_encode()
+						new Array( xmlrpc_encode( payLoad )
 						)
 					)
 				);
+				response = xmlrpc_decode( response.value() );
+				this.delCookie( 'sessionid' );
 				return response;
 			}
 
