@@ -5,8 +5,20 @@
 		<title>Test Login</title>
 		<script src="xmlrpc.js"></script>
 		<script src="boxcite.js"></script>
+		<style>
+			code {
+				margin: 16px; padding: 10px 20px;
+				width: 360px; display: block;
+				background: #eee;
+				border: solid 1px #ccc;
+				border-radius: 4px;
+			}
+		</style>
 	</head>
 	<body>
+		<code>
+			Instructions will appear here.
+		</code>
 		<form id="login_form" method="post" onsubmit="login();">
 			<label>Username: <input type="text" id="username" value="sreejith" /></label>
 			<br />
@@ -17,6 +29,7 @@
 			<label>Successfully logged-in? Now: <input type="submit" value="Logout" onclick="logout();" /></label>
 		</form>
 		<script>
+			users.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
 			function login () {
 				var data = {
 					username : document.getElementById("username").value,
