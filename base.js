@@ -31,7 +31,7 @@
 				this.URL += path;
 			}
 		}
-		else this.URL='http://192.168.1.108:8080/xmlrpc/';
+		else this.URL="http://sreejith.dyndns-home.com:18080/xmlrpc/";
 
 		// Implement a way to read & parse required data from the
 		// cookies which have been set.
@@ -70,6 +70,11 @@
 			document.cookie = cookie + "=" + content;
 		}
 
+		// Let's delete the cookies - special case of setCookie()
+		this.delCookie = function ( cookie ) {
+			this.setCookie( cookie, "", 1 );
+		}
+
 		// Here's the user authentication request method
 		this.loginRequest = function ( method, data ) {
 			try {
@@ -101,6 +106,27 @@
 				else alert("Cookie set automatically");
 
 				response = xmlrpc_decode( response.value() );
+				return response;
+			}
+
+			catch ( error ) {
+				error = "Failed to initiate sending data - " + error;
+				throw error;
+			}
+		}
+
+		// This un-authenticates (got a better word?) the user
+		this.logoutRequest = function ( method ) {
+			try {
+				var client = new xmlrpc_client( this.URL );
+				method = this.prefix + method;
+				this.delCookie( 'sessionid' );
+				var response = client.mq_send(
+					new xmlrpcmsg( method,
+						new Array( xmlrpc_encode()
+						)
+					)
+				);
 				return response;
 			}
 

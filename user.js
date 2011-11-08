@@ -22,3 +22,14 @@ users.login = function ( data ) {
 		throw error;
 	}
 }
+users.logout = function ( data ) {
+	try {
+		var method = 'logout';
+		response = this.logoutRequest( method );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
