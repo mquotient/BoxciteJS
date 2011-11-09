@@ -9,7 +9,7 @@
  */
 
 ( function ( window ) {
-	
+
 	// This entire code will be contained in this closure &
 	// will be executed to avoid any namespace pollution &
 	// it'll also be more efficient for garbage-collection.
@@ -134,12 +134,38 @@
 				throw error;
 			}
 		}
+
+		// The general-purpose routine for sending process-calls
+		this.sendRequest = function ( method, data ) {
+			try {
+				var client = new xmlrpc_client( this.URL );
+				var cookie = this.getCookie( 'sessionid' );
+				var payLoad = {};
+				if ( cookie != "" ) {
+					payLoad.sessionID = cookie;
+				}
+				method = this.prefix + method;
+				var response = client.mq_send(
+					new xmlrpcmsg( method,
+						new Array( xmlrpc_encode( payLoad )
+						)
+					)
+				);
+				response = xmlrpc_decode( response.value() );
+				return response;
+			}
+
+			catch ( error ) {
+				error = "Failed to initiate sending data - " + error;
+				throw error;
+			}
+		}
 	}
-	
+
 	window.Boxcite = Boxcite;
-	
+
 	// Here we're exposing "Boxcite" object, which will be
 	// the only global namespace that we will need to create.
-	
+
 })( window );
 
