@@ -7,10 +7,10 @@
  *
  */
 
-var users = new Boxcite;
+var user = new Boxcite;
 
-users.prefix = 'mq.boxcite.user.';
-users.login = function ( data ) {
+user.prefix = 'mq.boxcite.user.';
+user.login = function ( data ) {
 	try {
 		var method = 'login';
 		response = this.loginRequest( method, data );
@@ -21,7 +21,7 @@ users.login = function ( data ) {
 		throw error;
 	}
 }
-users.logout = function ( data ) {
+user.logout = function ( data ) {
 	try {
 		var method = 'logout';
 		response = this.logoutRequest( method );
