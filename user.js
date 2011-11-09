@@ -1,7 +1,6 @@
 /*
- * The base.js provides all the primordial objects for the
- * addon modules. Those modules (e.g. Contact, Campaign etc.)
- * can extend the functionalities of this constructor.
+ * The user.js extends the Boxcite object & provides
+ * all the user-specific properties & methods.
  *
  * @copyright mQuotient Solutions Limited
  * @developer Soumya Deb [DebWebDev]
