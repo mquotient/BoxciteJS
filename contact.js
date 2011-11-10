@@ -43,9 +43,20 @@ contact.read = function ( data ) {
 		throw error;
 	}
 }
-contact.find = function ( data ) {
+contact.findContacts = function ( data ) {
 	try {
-		var method = "find";
+		var method = "findContacts";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
+contact.findCategories = function ( data ) {
+	try {
+		var method = "findCategories";
 		response = this.sendRequest( method, data );
 		return response;
 	}
@@ -90,6 +101,17 @@ contact.count = function ( data ) {
 contact.remove = function ( data ) {
 	try {
 		var method = "delete";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
+contact.getFields = function ( data ) {
+	try {
+		var method = "getFields";
 		response = this.sendRequest( method, data );
 		return response;
 	}
