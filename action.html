@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Test Actions</title>
+		<script src="xmlrpc.js"></script>
+		<script src="boxcite.js"></script>
+		<style>
+			form {
+				margin: 16px; padding: 10px 20px;
+				width: 480px;
+			}
+			label { margin: 12px auto; display: block; }
+			input { float: right; }
+		</style>
+	</head>
+	<body>
+		<label>Successfully logged-in... <button onclick="logout();">Logout</button></label>
+		<form id="contact_form" method="post">
+			<label>First Name: <input type="text" id="first_name" value="Sreejith" /></label>
+			<label>Last Name: <input type="text" id="last_name" value="Narayanan" /></label>
+			<label>Add Contact: <input type="submit" value="Go!" onclick="addContact();" /></label>
+		</form>
+		<script>
+			user.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
+			contact.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
+ 			function logout () {
+				var response = user.logout();
+				if (response.success == true) {
+					alert("Logged Out!");
+				}
+				else {
+					alert(response.fail_message);
+				}
+ 			}
+ 			function addContact () {
+ 				var data = { data : {
+ 					first_name : document.getElementById("first_name").value,
+ 					last_name : document.getElementById("last_name").value
+ 				}}
+ 				try {
+				var response = contact.create( data );
+					console.log(response);
+				} catch ( err ) {
+					alert( err );
+				}
+				if (response.success == true) {
+					alert("Record Added!");
+				}
+				else {
+					alert(response.fail_message);
+				}
+ 			}
+		</script>
+	</body>
+</html>
