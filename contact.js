@@ -12,7 +12,7 @@ var contact = new Boxcite;
 contact.prefix = 'mq.boxcite.contact.';
 contact.create = function ( data ) {
 	try {
-		var method = "create";
+		var method = "createSingle";
 		response = this.sendRequest( method, data );
 		return response;
 	}

@@ -140,7 +140,7 @@
 			try {
 				var client = new xmlrpc_client( this.URL );
 				var cookie = this.getCookie( 'sessionid' );
-				var payLoad = {};
+				var payLoad = data;
 				if ( cookie != "" ) {
 					payLoad.sessionID = cookie;
 				}
