@@ -21,6 +21,14 @@
 			<label>Last Name: <input type="text" id="last_name" value="Narayanan" /></label>
 			<label>Add Contact: <input type="submit" value="Go!" onclick="addContact();" /></label>
 		</form>
+		<form id="upload_form" method="post" enctype="multipart/form-data">
+			<label>Select File: <input type="file" id="file" name="file" /></label>
+			<label>Delimiter: <input type="text" id="delimiter" name="delimiter" value="," /></label>
+			<label>First Row as Header: <input type="checkbox" id="header" name="header" checked="checked" /></label>
+			<label>Quoted Field as Text: <input type="checkbox" id="quotes" name="quotes" checked="checked" /></label>
+			<input type="hidden" id="sessionid" name="sessionID" value="contact.getCookie('sessionID');" />
+			<label>Send File to Server: <input type="button" value="Upload" onclick="uploadFile();" /></label>
+		</form>
 		<script>
 			user.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
 			contact.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
@@ -51,6 +59,25 @@
 					alert(response.fail_message);
 				}
  			}
+			function uploadFile() {
+				try {
+					var fileData = new FormData();
+					fileData.append("delimiter", document.getElementById('delimiter').value);
+					fileData.append("header", document.getElementById('header').value);
+					fileData.append("quotes", document.getElementById('quotes').value);
+					fileData.append("sessionid", document.getElementById('sessionid').value);
+					fileData.append("file", document.getElementById('file').files[0]);
+
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", 'http://sreejith.dyndns-home.com:18080/web/upload/',true);
+					xhr.send(fileData);
+
+					var response = xmlrpc_decode(xhr.responseXML);
+					alert(response.id);
+				} catch ( err ) {
+					alert( err );
+				}
+			}
 		</script>
 	</body>
 </html>
