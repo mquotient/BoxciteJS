@@ -29,6 +29,8 @@
 			<input type="hidden" id="sessionid" name="sessionID" value="contact.getCookie('sessionID');" />
 			<label>Send File to Server: <input type="button" value="Upload" onclick="uploadFile();" /></label>
 		</form>
+		<label>Get Categories... <button onclick="getCategory();">Go!</button></label>
+		<label>Get Contacts... <button onclick="findContacts();">Go!</button></label>
 		<script>
 			user.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
 			contact.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
@@ -76,6 +78,45 @@
 					alert(response.id);
 				} catch ( err ) {
 					alert( err );
+				}
+			}
+			function findContacts () {
+				var data = { data : {
+					criteria : {},
+					start : 0,
+					number_results : 20,
+					sort_fields : [],
+					sort_order : "ASC" }
+				}
+				try {
+					var response = contact.findContacts( data );
+				} catch ( err ) {
+					alert ( err );
+				}
+				if (response.success == true) {
+					alert( "Success: " + response.result);
+				} else {
+					alert( "Fail :" + response.fail_message);
+				}
+			}
+			function findCategories () {
+				var data = { data : {
+					type : "address_book",
+					criteria : {},
+					start : 0,
+					number_results : 20,
+					sort_fields : [],
+					sort_order : "ASC" }
+				}
+				try {
+					var response = contact.findCategories( data );
+				} catch ( err ) {
+					alert ( err );
+				}
+				if (response.success == true) {
+					alert( "Success: " + response.result);
+				} else {
+					alert( "Fail :" + response.fail_message);
 				}
 			}
 		</script>
