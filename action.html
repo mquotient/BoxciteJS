@@ -36,10 +36,10 @@
 				var response = user.logout();
 				if (response.success == true) {
 					alert("Logged Out!");
-				}
-				else {
+				} else {
 					alert(response.fail_message);
 				}
+				location.replace("index.html");
  			}
  			function addContact () {
  				var data = { data : {
