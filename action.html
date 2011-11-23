@@ -29,9 +29,13 @@
 			<input type="hidden" id="sessionid" name="sessionID" value="contact.getCookie('sessionID');" />
 			<label>Send File to Server: <input type="button" value="Upload" onclick="uploadFile();" /></label>
 		</form>
-		<label>Get Categories... <button onclick="getCategory();">Go!</button></label>
+		<label>Get Categories... <button onclick="findCategories();">Go!</button></label>
+		<div id='Catagories'></div>
 		<label>Get Contacts... <button onclick="findContacts();">Go!</button></label>
+		<div id='Contacts'></div>
 		<script>
+			//user.URL = "http://192.168.1.108:8080/xmlrpc/";
+			//contact.URL = "http://192.168.1.108:8080/xmlrpc/";
 			user.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
 			contact.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
  			function logout () {
@@ -71,13 +75,48 @@
 					fileData.append("file", document.getElementById('file').files[0]);
 
 					var xhr = new XMLHttpRequest();
-					xhr.open("POST", 'http://sreejith.dyndns-home.com:18080/web/upload/',true);
+					//xhr.open("POST", 'http://192.168.1.108:8080/xmlrpc/',false);
+					xhr.open("POST", 'http://sreejith.dyndns-home.com:18080/web/upload/',false);
 					xhr.send(fileData);
-
-					var response = xmlrpc_decode(xhr.responseXML);
-					alert(response.id);
+					var result = JSON.parse( xhr.response );
+					console.log( result );
+					if ( result.success == true ) {
+						var file = result.id;
+						var mapping = {
+							first_name: [0],
+							middle_name: [1],
+							last_name: [2],
+							phone_numbers: [5,6],
+							emails: [3,4],
+							work_address: { addr_1: 7, addr_2: 8, city: 9 }
+						};
+						var categories = { address_book : ['legolus'] };
+						resonse = creatFromFile( file, mapping, categories );
+						console.log( response );
+					} else {
+						alert( result.fail_message );
+					}
 				} catch ( err ) {
 					alert( err );
+				}
+			}
+			function creatFromFile ( file_id, mapping, categories ) {
+				var data = { data : {
+					file : file_id,
+					mapping : mapping,
+					categories: categories
+					}
+				}
+				try {
+					var response = contact.createFromFile( data );
+				} catch ( err ) {
+					alert ( err );
+				}
+				console.log(response.result);
+				if (response.success == true) {
+					alert( "Success: " + response.result);
+				} else {
+					alert( "Fail :" + response.fail_message);
 				}
 			}
 			function findContacts () {
@@ -93,6 +132,7 @@
 				} catch ( err ) {
 					alert ( err );
 				}
+				console.log(response.result);
 				if (response.success == true) {
 					alert( "Success: " + response.result);
 				} else {
@@ -113,6 +153,7 @@
 				} catch ( err ) {
 					alert ( err );
 				}
+				console.log( response );
 				if (response.success == true) {
 					alert( "Success: " + response.result);
 				} else {
