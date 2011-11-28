@@ -30,12 +30,13 @@
 			<label>Send File to Server: <input type="button" value="Upload" onclick="uploadFile();" /></label>
 		</form>
 		<label>Get Categories... <button onclick="findCategories();">Go!</button></label>
-		<div id='Catagories'></div>
 		<label>Get Contacts... <button onclick="findContacts();">Go!</button></label>
-		<div id='Contacts'></div>
+		<label>Read Contact... <button onclick="readContacts();">Go!</button></label>
+		<label>Update Contact... <button onclick="updateContacts();">Go!</button></label>
 		<script>
 			//user.URL = "http://192.168.1.108:8080/xmlrpc/";
 			//contact.URL = "http://192.168.1.108:8080/xmlrpc/";
+			contact.tmpCache = {};
 			user.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
 			contact.URL = "http://sreejith.dyndns-home.com:18080/xmlrpc/";
  			function logout () {
@@ -75,7 +76,7 @@
 					fileData.append("file", document.getElementById('file').files[0]);
 
 					var xhr = new XMLHttpRequest();
-					//xhr.open("POST", 'http://192.168.1.108:8080/xmlrpc/',false);
+					//xhr.open("POST", 'http://192.168.1.108:8080/web/upload/',false);
 					xhr.open("POST", 'http://sreejith.dyndns-home.com:18080/web/upload/',false);
 					xhr.send(fileData);
 					var result = JSON.parse( xhr.response );
@@ -150,6 +151,45 @@
 				}
 				try {
 					var response = contact.findCategories( data );
+				} catch ( err ) {
+					alert ( err );
+				}
+				console.log( response );
+				if (response.success == true) {
+					alert( "Success: " + response.result);
+				} else {
+					alert( "Fail :" + response.fail_message);
+				}
+			}
+			function readContacts () {
+				var data = { data : {
+					id : "4ecd1592d3882f2ea5000000",
+					fields : [],
+					read_type : "basic" }
+				}
+				try {
+					var response = contact.read( data );
+					contact.tmpCache = response.result;
+				} catch ( err ) {
+					alert ( err );
+				}
+				console.log( response );
+				if (response.success == true) {
+					alert( "Success: " + response.result);
+				} else {
+					alert( "Fail :" + response.fail_message);
+				}
+			}
+			function updateContacts () {
+				contact.tmpCache.first_name = "Sreejith";
+				var data = { data : {
+					id : "4ecd1592d3882f2ea5000000",
+					data : contact.tmpCache,
+					read_type : "basic" }
+				}
+				try {
+					var response = contact.update( data );
+					console.log(response);
 				} catch ( err ) {
 					alert ( err );
 				}
