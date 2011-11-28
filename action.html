@@ -168,7 +168,7 @@
 					read_type : "basic" }
 				}
 				try {
-					var response = contact.read( data );
+					var response = contact.readContact( data );
 					contact.tmpCache = response.result;
 				} catch ( err ) {
 					alert ( err );
@@ -188,7 +188,7 @@
 					read_type : "basic" }
 				}
 				try {
-					var response = contact.update( data );
+					var response = contact.updateContact( data );
 					console.log(response);
 				} catch ( err ) {
 					alert ( err );
