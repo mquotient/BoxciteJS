@@ -32,9 +32,9 @@ contact.createFromFile = function ( data ) {
 		throw error;
 	}
 }
-contact.read = function ( data ) {
+contact.readContact = function ( data ) {
 	try {
-		var method = "read";
+		var method = "readContact";
 		response = this.sendRequest( method, data );
 		return response;
 	}
@@ -65,9 +65,9 @@ contact.findCategories = function ( data ) {
 		throw error;
 	}
 }
-contact.update = function ( data ) {
+contact.updateContact = function ( data ) {
 	try {
-		var method = "update";
+		var method = "updateContact";
 		response = this.sendRequest( method, data );
 		return response;
 	}
