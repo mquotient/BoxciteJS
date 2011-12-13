@@ -21,7 +21,17 @@ workflow.createTransaction = function ( data ) {
 		throw error;
 	}
 }
-
+workflow.editTransaction = function ( data ) {
+	try {
+		var method = "editTransaction";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 workflow.readTransaction = function ( data ) {
 	try {
 		var method = "readTransaction";
