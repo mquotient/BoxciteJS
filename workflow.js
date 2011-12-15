@@ -54,3 +54,14 @@ workflow.findTransaction = function ( data ) {
 		throw error;
 	}
 }
+workflow.deleteTransaction = function ( data ) {
+	try {
+		var method = "deleteTransaction";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
