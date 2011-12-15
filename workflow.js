@@ -1,5 +1,5 @@
 /*
- * The contact.js extends the Boxcite object & provides
+ * The workflow.js extends the Boxcite object & provides
  * all the contact-specific properties & methods.
  *
  * @copyright mQuotient Solutions Limited
