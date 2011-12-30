@@ -54,6 +54,17 @@ workflow.findTransaction = function ( data ) {
 		throw error;
 	}
 }
+workflow.count = function ( data ) {
+	try {
+		var method = "countTransaction";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 workflow.deleteTransaction = function ( data ) {
 	try {
 		var method = "deleteTransaction";
