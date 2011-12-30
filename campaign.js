@@ -54,6 +54,17 @@ campaign.remove = function ( data ) {
 		throw error;
 	}
 }
+campaign.find = function ( data ) {
+	try {
+		var method = "find";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 campaign.count = function ( data ) {
 	try {
 		var method = "count";
