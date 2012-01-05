@@ -32,3 +32,25 @@ user.logout = function ( data ) {
 		throw error;
 	}
 }
+user.find = function () {
+	try {
+		var method = 'find';
+		response = this.sendRequest( method, {} );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
+user.locations = function () {
+	try {
+		var method = 'locations';
+		response = this.sendRequest( method, {} );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
