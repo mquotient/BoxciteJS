@@ -21,6 +21,17 @@ message.find = function ( data ) {
 		throw error;
 	}
 }
+message.count = function ( data ) {
+	try {
+		var method = "count";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 message.read = function ( data ) {
 	try {
 		var method = "read";
