@@ -98,6 +98,17 @@ contact.count = function ( data ) {
 		throw error;
 	}
 }
+contact.countCategories = function ( data ) {
+	try {
+		var method = "countCategories";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 contact.remove = function ( data ) {
 	try {
 		var method = "delete";
