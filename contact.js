@@ -109,6 +109,17 @@ contact.remove = function ( data ) {
 		throw error;
 	}
 }
+contact.export = function ( data ) {
+	try {
+		var method = "export";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 contact.getFields = function ( data ) {
 	try {
 		var method = "getFields";

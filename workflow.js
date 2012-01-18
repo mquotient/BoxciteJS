@@ -21,9 +21,9 @@ workflow.createTransaction = function ( data ) {
 		throw error;
 	}
 }
-workflow.editTransaction = function ( data ) {
+workflow.updateTransaction = function ( data ) {
 	try {
-		var method = "editTransaction";
+		var method = "updateTransaction";
 		response = this.sendRequest( method, data );
 		return response;
 	}

@@ -89,7 +89,7 @@ campaign.execute = function ( data ) {
 }
 campaign.getHistory = function ( data ) {
 	try {
-		var method = "gethistory";
+		var method = "getHistory";
 		response = this.sendRequest( method, data );
 		return response;
 	}
