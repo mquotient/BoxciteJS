@@ -103,7 +103,7 @@
 			}
 
 			catch ( error ) {
-				error = "Failed to initiate sending data - " + error;
+				error = "Failed to communicate with the server.";
 				throw error;
 			}
 		}
@@ -130,7 +130,7 @@
 			}
 
 			catch ( error ) {
-				error = "Failed to initiate sending data - " + error;
+				error = "Failed to communicate with the server.";
 				throw error;
 			}
 		}
@@ -156,7 +156,7 @@
 			}
 
 			catch ( error ) {
-				error = "Failed to initiate sending data - " + error;
+				error = "Failed to communicate with the server.";
 				throw error;
 			}
 		}
