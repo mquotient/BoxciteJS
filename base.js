@@ -31,7 +31,7 @@
 				this.URL += path;
 			}
 		}
-		else this.URL="http://localhost/xmlrpc/";
+		else this.URL="http://sreejith.dyndns-home.com:10580/xmlrpc/";
 
 		// Implement a way to read & parse required data from the
 		// cookies which have been set.
