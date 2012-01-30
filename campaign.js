@@ -87,6 +87,17 @@ campaign.execute = function ( data ) {
 		throw error;
 	}
 }
+campaign.doActions = function ( data ) {
+	try {
+		var method = "doActions";
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 campaign.getHistory = function ( data ) {
 	try {
 		var method = "getHistory";
