@@ -32,6 +32,28 @@ user.logout = function ( data ) {
 		throw error;
 	}
 }
+user.changePassword = function ( data ) {
+	try {
+		var method = 'changePassword';
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
+user.resetPassword = function ( data ) {
+	try {
+		var method = 'resetPassword';
+		response = this.sendRequest( method, data );
+		return response;
+	}
+	catch ( error ) {
+		error = "Error : " + error;
+		throw error;
+	}
+}
 user.find = function () {
 	try {
 		var method = 'find';
