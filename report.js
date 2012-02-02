@@ -10,9 +10,9 @@
 var report = new Boxcite;
 
 report.prefix = 'mq.boxcite.report.';
-report.get = function ( data ) {
+report.getReport = function ( data ) {
 	try {
-		var method = "get";
+		var method = "getReport";
 		response = this.sendRequest( method, data );
 		return response;
 	}

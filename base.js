@@ -90,7 +90,7 @@
 					)
 				);
 				cookie = this.getCookie( 'sessionid' ) ;
-				if ( cookie == "" ) {
+				if ( cookie == "" && response.success ) {
 					var cookie = response.cookies();
 					this.setCookie( 'sessionid',
 						cookie['sessionid'].value,
