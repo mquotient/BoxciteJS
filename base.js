@@ -89,9 +89,10 @@
 						)
 					)
 				);
-				cookie = this.getCookie( 'sessionid' ) ;
-				if ( cookie == "" && response.success ) {
-					var cookie = response.cookies();
+				cookie = this.getCookie( 'sessionid' );
+				var cookies = response.cookies();
+				if ( cookie == "" && cookies.sessionid ) {
+					var cookie = cookies;
 					this.setCookie( 'sessionid',
 						cookie['sessionid'].value,
 						cookie['sessionid'].expires
